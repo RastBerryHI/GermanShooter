@@ -2,6 +2,8 @@
 
 #include "ExtractionZone.h"
 #include "Components/BoxComponent.h"
+#include "GermanShooter/GermanShooterCharacter.h"
+#include "GermanShooter/GermanShooterGameMode.h"
 
 AExtractionZone::AExtractionZone()
 {
@@ -18,7 +20,17 @@ AExtractionZone::AExtractionZone()
 void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	
+	AGermanShooterCharacter* GermanPawn = Cast<AGermanShooterCharacter>(OtherActor);
+	if (!GermanPawn)
+	{
+		return;
+	}
+
+	AGermanShooterGameMode* GermanGameMode = Cast<AGermanShooterGameMode>(GetWorld()->GetAuthGameMode());
+	if (GermanGameMode)
+	{
+		GermanGameMode->CompleteMission(GermanPawn);
+	}
 }
 
 

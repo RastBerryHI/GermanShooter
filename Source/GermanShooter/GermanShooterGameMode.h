@@ -13,6 +13,11 @@ class AGermanShooterGameMode : public AGameModeBase
 
 public:
 	AGermanShooterGameMode();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
+	void OnMissionCompleted(APawn* pawn);
+	
+	void CompleteMission(APawn* pawn);
 };
 
 
