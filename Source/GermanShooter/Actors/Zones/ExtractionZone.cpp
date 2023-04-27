@@ -4,6 +4,7 @@
 #include "Components/BoxComponent.h"
 #include "GermanShooter/GermanShooterCharacter.h"
 #include "GermanShooter/GermanShooterGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 AExtractionZone::AExtractionZone()
 {
@@ -30,6 +31,11 @@ void AExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AA
 	if (GermanGameMode)
 	{
 		GermanGameMode->CompleteMission(GermanPawn);
+	}
+
+	if (MissionCompleteSound)
+	{
+		UGameplayStatics::PlaySound2D(this, MissionCompleteSound);
 	}
 }
 

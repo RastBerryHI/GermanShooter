@@ -2,6 +2,7 @@
 
 #include "GermanShooterGameMode.h"
 #include "GermanShooterCharacter.h"
+#include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 
 AGermanShooterGameMode::AGermanShooterGameMode()
@@ -14,9 +15,27 @@ AGermanShooterGameMode::AGermanShooterGameMode()
 
 void AGermanShooterGameMode::CompleteMission(APawn* pawn)
 {
-	if (pawn)
+	if (!pawn)
 	{
-		pawn->DisableInput(nullptr);
-		OnMissionCompleted(pawn);
+		return;
+	}
+
+	pawn->DisableInput(nullptr);
+	OnMissionCompleted(pawn);
+
+	if (APlayerController* PC = Cast<APlayerController>(pawn->GetController()))
+	{
+		TArray<AActor*> OutActors;
+
+		if (!SpectatingViewPoint)
+		{
+			return;
+		}
+		
+		UGameplayStatics::GetAllActorsOfClass(this, SpectatingViewPoint, OutActors);
+		if (OutActors.Num())
+		{
+			PC->SetViewTargetWithBlend(OutActors[0], 0.5f, EViewTargetBlendFunction::VTBlend_Cubic);
+		}
 	}
 }

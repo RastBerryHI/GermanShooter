@@ -11,6 +11,9 @@ class AGermanShooterGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditDefaultsOnly, Category = "Camera")
+	TSubclassOf<AActor> SpectatingViewPoint;
+	
 public:
 	AGermanShooterGameMode();
 
