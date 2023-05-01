@@ -11,6 +11,7 @@ AAIGuards::AAIGuards()
 
 	PawnSensingComp = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensingComp"));
 	PawnSensingComp->OnSeePawn.AddDynamic(this, &AAIGuards::OnPawnSeen);
+	PawnSensingComp->OnHearNoise.AddDynamic(this, &AAIGuards::OnPawnHeard);
 }
 
 void AAIGuards::BeginPlay()
@@ -27,19 +28,38 @@ void AAIGuards::Tick(float DeltaTime)
 
 void AAIGuards::OnPawnSeen(APawn* SeenPawn)
 {
-	if (SeenPawn)
+	if (!SeenPawn)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Seen Pawn"));
-		DrawDebugSphere(
-			GetWorld(),
-			SeenPawn->GetActorLocation(),
-			32.f,
-			50,
-			FColor::Yellow,
-			false,
-			10.f
-		);
+		return;
 	}
+
+	DrawDebugSphere(
+		GetWorld(),
+		SeenPawn->GetActorLocation(),
+		32.f,
+		50,
+		FColor::Yellow,
+		false,
+		10.f
+	);
+}
+
+void AAIGuards::OnPawnHeard(APawn* PawnInstigator, const FVector& Location, float Volume)
+{
+	if (!PawnInstigator)
+	{
+		return;
+	}
+
+	DrawDebugSphere(
+		GetWorld(),
+		PawnInstigator->GetActorLocation(),
+		32.f,
+		50,
+		FColor::Red,
+		false,
+		10.f
+	);
 }
 
 

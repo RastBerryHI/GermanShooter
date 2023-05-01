@@ -18,6 +18,9 @@ class GERMANSHOOTER_API AAIGuards : public ACharacter
 
 	UFUNCTION()
 	void OnPawnSeen(APawn* SeenPawn);
+
+	UFUNCTION()
+	void OnPawnHeard(APawn* PawnInstigator, const FVector& Location, float Volume);
 	
 public:
 	AAIGuards();

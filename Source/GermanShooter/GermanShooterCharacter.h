@@ -13,6 +13,7 @@ class USceneComponent;
 class UCameraComponent;
 class UAnimMontage;
 class USoundBase;
+class UPawnNoiseEmitterComponent;
 
 UCLASS(config=Game)
 class AGermanShooterCharacter : public ACharacter
@@ -39,6 +40,8 @@ class AGermanShooterCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI", meta=(AllowPrivateAccess = "true"));
+	UPawnNoiseEmitterComponent* NoiseEmitterComp;
 	
 public:
 	AGermanShooterCharacter();
