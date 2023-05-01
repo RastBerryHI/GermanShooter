@@ -15,6 +15,9 @@ class GERMANSHOOTER_API AAIGuards : public ACharacter
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPawnSensingComponent* PawnSensingComp;
+
+	UFUNCTION()
+	void OnPawnSeen(APawn* SeenPawn);
 	
 public:
 	AAIGuards();
